@@ -1,6 +1,6 @@
 import mysql from "mysql2";
 
-const connection = mysql.createConnection({
+const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
@@ -8,9 +8,12 @@ const connection = mysql.createConnection({
   port: process.env.DB_PORT || 3306
 });
 
-connection.connect((err) => {
-  if (err) throw err;
-  console.log("✅ Connected to MySQL");
+db.connect((err) => {
+  if (err) {
+    console.error("❌ Database connection failed:", err);
+    return;
+  }
+  console.log("✅ Connected to MySQL database");
 });
 
-export default connection;
+export default db;
